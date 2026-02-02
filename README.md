@@ -1,25 +1,45 @@
 # OOP TypeScript Mastery
 
-A hands-on learning repository for mastering Object-Oriented Programming concepts in TypeScript.
+<img src="https://www.svgrepo.com/show/354478/typescript-icon.svg" width="100" height="100" />
+
+<img src="https://www.svgrepo.com/show/439241/object-oriented-programming.svg" width="100" height="100" />
+
+A structured, task-based repository designed to help developers master Object-Oriented Programming (OOP) in TypeScript.  
+The project combines hands-on exercises, tests, notes, and architectural patterns used in real production systems.
+
+---
 
 ## Getting Started
 
+Install dependencies:
+
 ```bash
 npm install
-```
+````
+
+---
 
 ## Running Tests
 
+Run all tests:
+
 ```bash
-# Run all tests once
 npm test
+```
 
-# Run tests in watch mode
+Watch mode:
+
+```bash
 npm run test:watch
+```
 
-# Run tests for a specific task
+Run tests for a specific task:
+
+```bash
 npm test task-01
 ```
+
+---
 
 ## Type Checking
 
@@ -27,45 +47,175 @@ npm test task-01
 npm run typecheck
 ```
 
+---
+
 ## Building
 
 ```bash
 npm run build
 ```
 
-## Structure
+---
+
+## Formatting & Linting (Biome)
+
+Format all files:
+
+```bash
+npm run format
+```
+
+Check formatting:
+
+```bash
+npm run format:check
+```
+
+Lint all files:
+
+```bash
+npm run lint
+```
+
+Run all Biome checks:
+
+```bash
+npm run check
+```
+
+CI-safe check:
+
+```bash
+npm run check:ci
+```
+
+---
+
+## Repository Structure
 
 Each `task-XX-*` directory contains:
 
-- `src/index.ts` — Starter code and class skeletons
-- `tests/index.test.ts` — Vitest test placeholders
-- `notes.md` — Your personal notes
-- `README.md` — Exercise description
+* `src/index.ts` — Starter code with scaffolding and TODO markers
+* `tests/index.test.ts` — Vitest test suite for the task
+* `notes.md` — Personal notes for documenting insights
+* `README.md` — Task description and learning goals
+* `solutions/` — Folder where contributors submit their solutions
 
-## Tasks
+  * Naming convention for contributors:
 
-1. **Fundamentals & Classes** — Class syntax, constructors, methods
-2. **Access Modifiers** — public, private, protected, readonly
-3. **Inheritance & Subtyping** — extends, super, method overriding
-4. **Polymorphism** — Runtime polymorphism, duck typing
-5. **Abstraction & Interfaces** — Abstract classes, interfaces, contracts
-6. **Generics** — Type parameters, constraints, variance
-7. **Composition vs Inheritance** — Favoring composition, delegation
-8. **SOLID Principles** — SRP, OCP, LSP, ISP, DIP
-9. **Dependency Injection** — IoC containers, manual DI
-10. **Creational Patterns** — Factory, Builder, Singleton, Prototype
-11. **Structural Patterns** — Adapter, Decorator, Facade, Proxy
-12. **Behavioral Patterns** — Strategy, Observer, Command, State
-13. **Mixins** — Mixin patterns in TypeScript
-14. **Decorators & Metaprogramming** — Class/method/property decorators
-15. **Immutability & Value Objects** — Readonly patterns, value semantics
-16. **Concurrency & Async Patterns** — Promises, async/await, patterns
-17. **Event-Driven & Reactive** — EventEmitter, Observables, reactive patterns
-18. **Domain-Driven Design** — Entities, Value Objects, Aggregates
-19. **Hexagonal Architecture** — Ports & Adapters, clean architecture
-20. **Testing OOP Code** — Mocking, test doubles, testable design
-21. **Refactoring & Code Smells** — Identifying and fixing anti-patterns
-22. **Performance & Memory** — Object pooling, flyweight, optimization
-23. **Serialization & Persistence** — JSON, class revival, repositories
-24. **TypeScript Subtleties** — Structural typing, type guards, branded types
-25. **Advanced Patterns** — Combining patterns, real-world applications
+    ```
+    solutions/<github-username>-task-XX.ts
+    ```
+
+Example:
+
+```
+task-01-fundamentals-classes/
+ ├── src/index.ts
+ ├── tests/index.test.ts
+ ├── notes.md
+ ├── README.md
+ └── solutions/
+      └── zingerengineer-task-01.ts
+```
+
+---
+
+## Tasks Overview
+
+### Core OOP Concepts
+
+1. Fundamentals & Classes
+2. Access Modifiers
+3. Inheritance & Subtyping
+4. Polymorphism
+5. Abstraction & Interfaces
+6. Generics
+
+### Design Principles
+
+7. Composition vs Inheritance
+8. SOLID Principles
+9. Dependency Injection
+
+### Design Patterns
+
+10. Creational Patterns
+11. Structural Patterns
+12. Behavioral Patterns
+13. Mixins
+
+### Advanced TypeScript
+
+14. Decorators & Metaprogramming
+15. Immutability & Value Objects
+16. Concurrency & Async Patterns
+17. Event-Driven & Reactive Programming
+
+### Enterprise Architecture
+
+18. Domain-Driven Design
+19. Hexagonal Architecture
+20. Testing OOP Code
+
+### Optimization & Refactoring
+
+21. Refactoring & Code Smells
+22. Performance & Memory Patterns
+23. Serialization & Persistence
+24. TypeScript Subtleties
+25. Advanced Patterns
+
+---
+
+## Learning Path
+
+**Beginner (Tasks 1–6)**
+Foundations of classes, inheritance, and basic OOP principles.
+
+**Intermediate (Tasks 7–13)**
+Design principles and classic design patterns.
+
+**Advanced (Tasks 14–20)**
+Enterprise-grade approaches, architecture, and testing.
+
+**Expert (Tasks 21–25)**
+Refactoring, optimization, advanced patterns, performance.
+
+---
+
+## Development Workflow
+
+1. Open the target `task-XX-*` directory.
+2. Read the task’s `README.md`.
+3. Examine the provided scaffolding in `src/index.ts`.
+4. Implement your solution.
+5. Run tests using `npm test task-XX`.
+6. Document your findings in `notes.md`.
+7. Submit your solution in the `solutions/` folder:
+
+   ```
+   solutions/<github-username>-task-XX.ts
+   ```
+8. Verify everything with:
+
+   * `npm run typecheck`
+   * `npm run lint`
+   * `npm run format`
+
+---
+
+## Technologies
+
+* TypeScript
+* Vitest
+* Biome
+* Node.js
+
+---
+
+## Author
+
+[ZingerEngineer](https://github.com/ZingerEngineer)
+
+Contributions are welcome following the solution-naming rule described above.
