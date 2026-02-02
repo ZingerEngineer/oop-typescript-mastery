@@ -1,8 +1,9 @@
 # OOP TypeScript Mastery
 
-<img src="https://www.svgrepo.com/show/354478/typescript-icon.svg" width="100" height="100" />
-
-<img src="https://www.svgrepo.com/show/439241/object-oriented-programming.svg" width="100" height="100" />
+<div style="display: flex; gap: 20px;">
+  <img src="https://www.svgrepo.com/show/354478/typescript-icon.svg" width="70" height="70" />
+  <img src="https://www.svgrepo.com/show/439241/object-oriented-programming.svg" width="70" height="70" />
+</div>
 
 A structured, task-based repository designed to help developers master Object-Oriented Programming (OOP) in TypeScript.  
 The project combines hands-on exercises, tests, notes, and architectural patterns used in real production systems.
