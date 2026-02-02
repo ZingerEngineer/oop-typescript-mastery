@@ -1,33 +1,54 @@
-// task-18-domain-driven-design - Entities, Value Objects, Aggregates
+/**
+ * TASK 18: Domain-Driven Design
+ *
+ * PROBLEM:
+ * Implement DDD building blocks:
+ * - Value Object: Immutable, compared by value (EmailAddress)
+ * - Entity: Has identity, compared by ID
+ * - Aggregate Root: Controls access to child entities (Order)
+ *
+ * EXPECTED OUTCOMES:
+ * 1. EmailAddress validates format, normalizes to lowercase
+ * 2. Entity compares by ID, not by properties
+ * 3. Order is aggregate root, controls OrderItems
+ * 4. Order.addItem() only works when status is 'pending'
+ * 5. Order.confirm() fails if no items
+ *
+ * LEARNING GOALS:
+ * - Distinguish Value Objects vs Entities
+ * - Understand aggregate boundaries
+ * - Enforce invariants through domain logic
+ */
 
-// Value Object
+// Value Object - immutable, compared by value
 export class EmailAddress {
   private constructor(readonly value: string) {
     Object.freeze(this);
   }
 
   static create(email: string): EmailAddress {
-    if (!email.includes('@')) {
-      throw new Error('Invalid email address');
-    }
-    return new EmailAddress(email.toLowerCase());
+    // TODO: Throw Error('Invalid email address') if no '@'
+    // TODO: Return new EmailAddress with lowercase email
+    throw new Error('Not implemented');
   }
 
   equals(other: EmailAddress): boolean {
-    return this.value === other.value;
+    // TODO: Compare by value
+    throw new Error('Not implemented');
   }
 }
 
-// Entity
+// Entity base class - has identity
 export abstract class Entity<Id> {
   constructor(readonly id: Id) {}
 
   equals(other: Entity<Id>): boolean {
-    return this.id === other.id;
+    // TODO: Compare by ID only
+    throw new Error('Not implemented');
   }
 }
 
-// Aggregate Root
+// Aggregate Root - Order controls OrderItems
 export class Order extends Entity<string> {
   private items: OrderItem[] = [];
   private _status: OrderStatus = 'pending';
@@ -41,25 +62,23 @@ export class Order extends Entity<string> {
   }
 
   addItem(productId: string, quantity: number, price: number): void {
-    if (this._status !== 'pending') {
-      throw new Error('Cannot modify non-pending order');
-    }
-    this.items.push(new OrderItem(productId, quantity, price));
+    // TODO: Throw Error('Cannot modify non-pending order') if not pending
+    // TODO: Add new OrderItem to items array
   }
 
   confirm(): void {
-    if (this.items.length === 0) {
-      throw new Error('Cannot confirm empty order');
-    }
-    this._status = 'confirmed';
+    // TODO: Throw Error('Cannot confirm empty order') if no items
+    // TODO: Set status to 'confirmed'
   }
 
   get total(): number {
-    return this.items.reduce((sum, item) => sum + item.subtotal, 0);
+    // TODO: Sum all item subtotals
+    throw new Error('Not implemented');
   }
 
   getItems(): readonly OrderItem[] {
-    return [...this.items];
+    // TODO: Return copy of items array
+    throw new Error('Not implemented');
   }
 }
 
@@ -71,7 +90,8 @@ export class OrderItem {
   ) {}
 
   get subtotal(): number {
-    return this.quantity * this.price;
+    // TODO: Return quantity * price
+    throw new Error('Not implemented');
   }
 }
 

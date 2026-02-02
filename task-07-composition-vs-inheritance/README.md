@@ -1,1 +1,1 @@
-Exercise: Composition vs Inheritance. Write implementation and document in notes.md.
+# Composition vs Inheritance

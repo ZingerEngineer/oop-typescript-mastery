@@ -1,13 +1,37 @@
-// task-12-behavioral-patterns - Strategy, Observer, Command, State
+/**
+ * TASK 12: Behavioral Patterns
+ *
+ * PROBLEM:
+ * Implement four behavioral design patterns:
+ * - Strategy: Swap algorithms at runtime
+ * - Observer: Notify subscribers of changes
+ * - Command: Encapsulate actions with undo support
+ * - State: Change behavior based on internal state
+ *
+ * EXPECTED OUTCOMES:
+ * 1. Sorter uses interchangeable SortStrategy
+ * 2. Subject notifies all subscribed Observers on notify()
+ * 3. CommandHistory executes commands and supports undo
+ * 4. Context delegates to current State object
+ *
+ * LEARNING GOALS:
+ * - Strategy: Encapsulate algorithms
+ * - Observer: Implement pub/sub pattern
+ * - Command: Support undo/redo operations
+ * - State: Manage state-dependent behavior
+ */
 
-// Strategy Pattern
+// ==================== STRATEGY PATTERN ====================
+
 export interface SortStrategy<T> {
   sort(items: T[]): T[];
 }
 
 export class QuickSort<T> implements SortStrategy<T> {
   sort(items: T[]): T[] {
-    return [...items].sort();
+    // TODO: Return sorted copy of items
+    // Hint: [...items].sort()
+    throw new Error('Not implemented');
   }
 }
 
@@ -15,15 +39,17 @@ export class Sorter<T> {
   constructor(private strategy: SortStrategy<T>) {}
 
   setStrategy(strategy: SortStrategy<T>): void {
-    this.strategy = strategy;
+    // TODO: Update the strategy
   }
 
   sort(items: T[]): T[] {
-    return this.strategy.sort(items);
+    // TODO: Delegate to strategy.sort()
+    throw new Error('Not implemented');
   }
 }
 
-// Observer Pattern
+// ==================== OBSERVER PATTERN ====================
+
 export interface Observer<T> {
   update(data: T): void;
 }
@@ -32,19 +58,21 @@ export class Subject<T> {
   private observers: Observer<T>[] = [];
 
   subscribe(observer: Observer<T>): void {
-    this.observers.push(observer);
+    // TODO: Add observer to the list
   }
 
   unsubscribe(observer: Observer<T>): void {
-    this.observers = this.observers.filter(o => o !== observer);
+    // TODO: Remove observer from the list
+    // Hint: Use filter()
   }
 
   notify(data: T): void {
-    this.observers.forEach(o => o.update(data));
+    // TODO: Call update(data) on each observer
   }
 }
 
-// Command Pattern
+// ==================== COMMAND PATTERN ====================
+
 export interface Command {
   execute(): void;
   undo(): void;
@@ -54,17 +82,19 @@ export class CommandHistory {
   private history: Command[] = [];
 
   execute(command: Command): void {
-    command.execute();
-    this.history.push(command);
+    // TODO: 1. Call command.execute()
+    // TODO: 2. Push command to history
   }
 
   undo(): void {
-    const command = this.history.pop();
-    command?.undo();
+    // TODO: 1. Pop last command from history
+    // TODO: 2. Call undo() on it (if exists)
+    // Hint: Use optional chaining ?.
   }
 }
 
-// State Pattern
+// ==================== STATE PATTERN ====================
+
 export interface State {
   handle(context: Context): void;
 }
@@ -73,10 +103,10 @@ export class Context {
   constructor(private state: State) {}
 
   setState(state: State): void {
-    this.state = state;
+    // TODO: Update the current state
   }
 
   request(): void {
-    this.state.handle(this);
+    // TODO: Delegate to state.handle(this)
   }
 }

@@ -1,6 +1,25 @@
-// task-22-performance-memory - Object pooling, flyweight, optimization
+/**
+ * TASK 22: Performance & Memory
+ *
+ * PROBLEM:
+ * Implement patterns for efficient memory and object management:
+ * - Object Pool: Reuse expensive objects instead of creating new ones
+ * - Flyweight: Share common state between many objects
+ * - Lazy Initialization: Defer expensive operations until needed
+ *
+ * EXPECTED OUTCOMES:
+ * 1. ObjectPool pre-creates objects and reuses them
+ * 2. ObjectPool.acquire() returns object, release() returns it to pool
+ * 3. CharacterStyleFactory caches and reuses CharacterStyle instances
+ * 4. LazyValue only calls factory on first get(), not on construction
+ *
+ * LEARNING GOALS:
+ * - Reduce GC pressure with object pooling
+ * - Share intrinsic state with flyweight
+ * - Defer initialization for better startup performance
+ */
 
-// Object Pool pattern
+// Object Pool pattern - reuse expensive objects
 export class ObjectPool<T> {
   private available: T[] = [];
   private inUse = new Set<T>();
@@ -10,35 +29,35 @@ export class ObjectPool<T> {
     private reset: (obj: T) => void,
     initialSize: number = 0
   ) {
-    for (let i = 0; i < initialSize; i++) {
-      this.available.push(factory());
-    }
+    // TODO: Create initialSize objects using factory and add to available
   }
 
   acquire(): T {
-    const obj = this.available.pop() ?? this.factory();
-    this.inUse.add(obj);
-    return obj;
+    // TODO: Pop from available, or create new if empty
+    // TODO: Add to inUse set
+    // TODO: Return the object
+    throw new Error('Not implemented');
   }
 
   release(obj: T): void {
-    if (this.inUse.has(obj)) {
-      this.inUse.delete(obj);
-      this.reset(obj);
-      this.available.push(obj);
-    }
+    // TODO: If obj is in inUse:
+    // TODO: 1. Remove from inUse
+    // TODO: 2. Call reset(obj)
+    // TODO: 3. Push to available
   }
 
   get availableCount(): number {
-    return this.available.length;
+    // TODO: Return available array length
+    throw new Error('Not implemented');
   }
 
   get inUseCount(): number {
-    return this.inUse.size;
+    // TODO: Return inUse set size
+    throw new Error('Not implemented');
   }
 }
 
-// Flyweight pattern
+// Flyweight pattern - share common state
 export class CharacterStyle {
   constructor(
     readonly font: string,
@@ -51,21 +70,19 @@ export class CharacterStyleFactory {
   private cache = new Map<string, CharacterStyle>();
 
   getStyle(font: string, size: number, color: string): CharacterStyle {
-    const key = `${font}-${size}-${color}`;
-
-    if (!this.cache.has(key)) {
-      this.cache.set(key, new CharacterStyle(font, size, color));
-    }
-
-    return this.cache.get(key)!;
+    // TODO: Create cache key like `${font}-${size}-${color}`
+    // TODO: If not in cache, create new CharacterStyle and cache it
+    // TODO: Return cached instance
+    throw new Error('Not implemented');
   }
 
   get cacheSize(): number {
-    return this.cache.size;
+    // TODO: Return cache Map size
+    throw new Error('Not implemented');
   }
 }
 
-// Lazy initialization
+// Lazy initialization - defer expensive operations
 export class LazyValue<T> {
   private value?: T;
   private initialized = false;
@@ -73,14 +90,14 @@ export class LazyValue<T> {
   constructor(private factory: () => T) {}
 
   get(): T {
-    if (!this.initialized) {
-      this.value = this.factory();
-      this.initialized = true;
-    }
-    return this.value!;
+    // TODO: If not initialized, call factory and store result
+    // TODO: Mark as initialized
+    // TODO: Return value
+    throw new Error('Not implemented');
   }
 
   get isInitialized(): boolean {
-    return this.initialized;
+    // TODO: Return initialized flag
+    throw new Error('Not implemented');
   }
 }

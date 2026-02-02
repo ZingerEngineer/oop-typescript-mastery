@@ -1,6 +1,26 @@
-// task-16-concurrency-async-patterns - Promises, async/await, patterns
+/**
+ * TASK 16: Concurrency & Async Patterns
+ *
+ * PROBLEM:
+ * Implement async utilities for handling errors, retries, and concurrency:
+ * - AsyncResult: Wrap success/failure without throwing
+ * - withRetry: Retry failed operations with exponential backoff
+ * - Semaphore: Limit concurrent operations
+ *
+ * EXPECTED OUTCOMES:
+ * 1. AsyncResult.success/failure create result wrappers
+ * 2. AsyncResult.isSuccess() checks for error
+ * 3. AsyncResult.getOrThrow() returns value or throws error
+ * 4. withRetry() retries with delays: baseDelay * 2^attempt
+ * 5. Semaphore limits concurrent running tasks
+ *
+ * LEARNING GOALS:
+ * - Handle async errors without try/catch everywhere
+ * - Implement retry with exponential backoff
+ * - Control concurrency with semaphore pattern
+ */
 
-// Async result wrapper
+// Async result wrapper - Success or Failure without throwing
 export class AsyncResult<T, E = Error> {
   private constructor(
     private readonly value?: T,
@@ -8,24 +28,29 @@ export class AsyncResult<T, E = Error> {
   ) {}
 
   static success<T, E = Error>(value: T): AsyncResult<T, E> {
-    return new AsyncResult(value, undefined);
+    // TODO: Return new AsyncResult with value, no error
+    throw new Error('Not implemented');
   }
 
   static failure<T, E = Error>(error: E): AsyncResult<T, E> {
-    return new AsyncResult(undefined, error);
+    // TODO: Return new AsyncResult with error, no value
+    throw new Error('Not implemented');
   }
 
   isSuccess(): boolean {
-    return this.error === undefined;
+    // TODO: Return true if no error
+    throw new Error('Not implemented');
   }
 
   getOrThrow(): T {
-    if (this.error) throw this.error;
-    return this.value as T;
+    // TODO: If error exists, throw it
+    // TODO: Otherwise return value
+    throw new Error('Not implemented');
   }
 
   getOrDefault(defaultValue: T): T {
-    return this.isSuccess() ? (this.value as T) : defaultValue;
+    // TODO: Return value if success, otherwise defaultValue
+    throw new Error('Not implemented');
   }
 }
 
@@ -35,20 +60,12 @@ export async function withRetry<T>(
   maxAttempts: number = 3,
   baseDelay: number = 100
 ): Promise<T> {
-  let lastError: Error | undefined;
-
-  for (let attempt = 0; attempt < maxAttempts; attempt++) {
-    try {
-      return await fn();
-    } catch (error) {
-      lastError = error as Error;
-      if (attempt < maxAttempts - 1) {
-        await delay(baseDelay * Math.pow(2, attempt));
-      }
-    }
-  }
-
-  throw lastError;
+  // TODO: Loop up to maxAttempts times
+  // TODO: Try calling fn() and return result if successful
+  // TODO: On error, save it and wait: baseDelay * 2^attempt
+  // TODO: After all attempts fail, throw the last error
+  // Hint: Use delay() function and Math.pow(2, attempt)
+  throw new Error('Not implemented');
 }
 
 // Async semaphore for concurrency control
@@ -59,32 +76,21 @@ export class Semaphore {
   constructor(private readonly maxConcurrency: number) {}
 
   async acquire(): Promise<void> {
-    if (this.running < this.maxConcurrency) {
-      this.running++;
-      return;
-    }
-
-    return new Promise<void>(resolve => {
-      this.queue.push(resolve);
-    });
+    // TODO: If running < maxConcurrency, increment running and return
+    // TODO: Otherwise, return a Promise that resolves when slot is available
+    // Hint: Push resolve callback to queue
+    throw new Error('Not implemented');
   }
 
   release(): void {
-    this.running--;
-    const next = this.queue.shift();
-    if (next) {
-      this.running++;
-      next();
-    }
+    // TODO: Decrement running count
+    // TODO: If queue has waiting tasks, increment running and call next()
   }
 
   async run<T>(fn: () => Promise<T>): Promise<T> {
-    await this.acquire();
-    try {
-      return await fn();
-    } finally {
-      this.release();
-    }
+    // TODO: Acquire, run fn, release (even on error)
+    // Hint: Use try/finally
+    throw new Error('Not implemented');
   }
 }
 

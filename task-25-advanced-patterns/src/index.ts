@@ -1,6 +1,25 @@
-// task-25-advanced-patterns - Combining patterns, real-world applications
+/**
+ * TASK 25: Advanced Patterns
+ *
+ * PROBLEM:
+ * Implement advanced enterprise patterns:
+ * - Specification: Encapsulate business rules as composable objects
+ * - Unit of Work: Track changes for batch persistence
+ *
+ * EXPECTED OUTCOMES:
+ * 1. Specifications can be combined with and(), or(), not()
+ * 2. PriceRangeSpec checks if price is within min-max
+ * 3. InStockSpec checks if product is in stock
+ * 4. CategorySpec checks product category
+ * 5. SimpleUnitOfWork tracks new, dirty, and deleted entities
+ *
+ * LEARNING GOALS:
+ * - Compose business rules with Specification pattern
+ * - Track entity state changes with Unit of Work
+ * - Build reusable domain logic
+ */
 
-// Specification Pattern
+// Specification Pattern - composable business rules
 export interface Specification<T> {
   isSatisfiedBy(candidate: T): boolean;
   and(other: Specification<T>): Specification<T>;
@@ -26,22 +45,28 @@ export abstract class CompositeSpecification<T> implements Specification<T> {
 
 class AndSpecification<T> extends CompositeSpecification<T> {
   constructor(private left: Specification<T>, private right: Specification<T>) { super(); }
+
   isSatisfiedBy(candidate: T): boolean {
-    return this.left.isSatisfiedBy(candidate) && this.right.isSatisfiedBy(candidate);
+    // TODO: Return true if BOTH left AND right are satisfied
+    throw new Error('Not implemented');
   }
 }
 
 class OrSpecification<T> extends CompositeSpecification<T> {
   constructor(private left: Specification<T>, private right: Specification<T>) { super(); }
+
   isSatisfiedBy(candidate: T): boolean {
-    return this.left.isSatisfiedBy(candidate) || this.right.isSatisfiedBy(candidate);
+    // TODO: Return true if left OR right is satisfied
+    throw new Error('Not implemented');
   }
 }
 
 class NotSpecification<T> extends CompositeSpecification<T> {
   constructor(private spec: Specification<T>) { super(); }
+
   isSatisfiedBy(candidate: T): boolean {
-    return !this.spec.isSatisfiedBy(candidate);
+    // TODO: Return opposite of spec.isSatisfiedBy
+    throw new Error('Not implemented');
   }
 }
 
@@ -55,25 +80,30 @@ export interface Product {
 
 export class PriceRangeSpec extends CompositeSpecification<Product> {
   constructor(private min: number, private max: number) { super(); }
+
   isSatisfiedBy(product: Product): boolean {
-    return product.price >= this.min && product.price <= this.max;
+    // TODO: Return true if price is >= min AND <= max
+    throw new Error('Not implemented');
   }
 }
 
 export class InStockSpec extends CompositeSpecification<Product> {
   isSatisfiedBy(product: Product): boolean {
-    return product.inStock;
+    // TODO: Return true if product.inStock is true
+    throw new Error('Not implemented');
   }
 }
 
 export class CategorySpec extends CompositeSpecification<Product> {
   constructor(private category: string) { super(); }
+
   isSatisfiedBy(product: Product): boolean {
-    return product.category === this.category;
+    // TODO: Return true if product.category matches
+    throw new Error('Not implemented');
   }
 }
 
-// Unit of Work Pattern
+// Unit of Work Pattern - track changes for batch commit
 export interface UnitOfWork {
   registerNew<T extends { id: string }>(entity: T): void;
   registerDirty<T extends { id: string }>(entity: T): void;
@@ -88,23 +118,22 @@ export class SimpleUnitOfWork implements UnitOfWork {
   private deletedIds: Set<string> = new Set();
 
   registerNew<T extends { id: string }>(entity: T): void {
-    this.newEntities.set(entity.id, entity);
+    // TODO: Add entity to newEntities Map by id
   }
 
   registerDirty<T extends { id: string }>(entity: T): void {
-    if (!this.newEntities.has(entity.id)) {
-      this.dirtyEntities.set(entity.id, entity);
-    }
+    // TODO: Only add to dirtyEntities if NOT in newEntities
+    // (new entities don't need to be marked dirty)
   }
 
   registerDeleted<T extends { id: string }>(entity: T): void {
-    this.newEntities.delete(entity.id);
-    this.dirtyEntities.delete(entity.id);
-    this.deletedIds.add(entity.id);
+    // TODO: Remove from newEntities and dirtyEntities
+    // TODO: Add id to deletedIds Set
   }
 
   async commit(): Promise<void> {
-    // In real impl: persist to database
+    // TODO: Log counts of new, dirty, deleted entities
+    // TODO: Clear all tracking collections
     console.log(`Inserting ${this.newEntities.size} entities`);
     console.log(`Updating ${this.dirtyEntities.size} entities`);
     console.log(`Deleting ${this.deletedIds.size} entities`);
@@ -112,12 +141,10 @@ export class SimpleUnitOfWork implements UnitOfWork {
   }
 
   rollback(): void {
-    this.clear();
+    // TODO: Clear all tracking collections
   }
 
   private clear(): void {
-    this.newEntities.clear();
-    this.dirtyEntities.clear();
-    this.deletedIds.clear();
+    // TODO: Clear newEntities, dirtyEntities, deletedIds
   }
 }

@@ -1,4 +1,24 @@
-// task-24-typescript-subtleties - Structural typing, type guards, branded types
+/**
+ * TASK 24: TypeScript Subtleties
+ *
+ * PROBLEM:
+ * Master TypeScript-specific concepts that differ from traditional OOP:
+ * - Structural typing: Types compatible by shape, not name
+ * - Type guards: Narrow union types with custom predicates
+ * - Branded types: Add compile-time type safety to primitives
+ *
+ * EXPECTED OUTCOMES:
+ * 1. Point3D is assignable to Point2D (structural typing)
+ * 2. isDog type guard narrows Pet union to Dog
+ * 3. petSound uses type guard to call correct method
+ * 4. UserId and OrderId are distinct at compile time
+ * 5. getUserById only accepts UserId, not OrderId
+ *
+ * LEARNING GOALS:
+ * - Understand structural vs nominal typing
+ * - Write custom type guards with `is` keyword
+ * - Use branded types for type-safe IDs
+ */
 
 // Structural typing demonstration
 export interface Point2D {
@@ -14,10 +34,12 @@ export interface Point3D {
 
 // Point3D is assignable to Point2D due to structural typing
 export function distanceFromOrigin2D(point: Point2D): number {
-  return Math.sqrt(point.x ** 2 + point.y ** 2);
+  // TODO: Return distance using Pythagorean theorem
+  // Formula: Math.sqrt(x² + y²)
+  throw new Error('Not implemented');
 }
 
-// Type guards
+// Type guards for discriminated unions
 export interface Dog {
   kind: 'dog';
   bark(): string;
@@ -31,14 +53,13 @@ export interface Cat {
 export type Pet = Dog | Cat;
 
 export function isDog(pet: Pet): pet is Dog {
-  return pet.kind === 'dog';
+  // TODO: Return true if pet.kind is 'dog'
+  throw new Error('Not implemented');
 }
 
 export function petSound(pet: Pet): string {
-  if (isDog(pet)) {
-    return pet.bark();
-  }
-  return pet.meow();
+  // TODO: Use isDog guard to call bark() or meow()
+  throw new Error('Not implemented');
 }
 
 // Branded types for type safety
@@ -50,23 +71,27 @@ export type UserId = Brand<string, 'UserId'>;
 export type OrderId = Brand<string, 'OrderId'>;
 
 export function createUserId(id: string): UserId {
-  return id as UserId;
+  // TODO: Cast id to UserId
+  throw new Error('Not implemented');
 }
 
 export function createOrderId(id: string): OrderId {
-  return id as OrderId;
+  // TODO: Cast id to OrderId
+  throw new Error('Not implemented');
 }
 
 // Functions that only accept specific branded types
 export function getUserById(id: UserId): { id: UserId; name: string } {
-  return { id, name: 'User' };
+  // TODO: Return object with id and name 'User'
+  throw new Error('Not implemented');
 }
 
 export function getOrderById(id: OrderId): { id: OrderId; total: number } {
-  return { id, total: 100 };
+  // TODO: Return object with id and total 100
+  throw new Error('Not implemented');
 }
 
-// Conditional types
+// Utility types
 export type NonNullableProperties<T> = {
   [K in keyof T]: NonNullable<T[K]>;
 };

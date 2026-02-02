@@ -1,4 +1,24 @@
-// task-23-serialization-persistence - JSON, class revival, repositories
+/**
+ * TASK 23: Serialization & Persistence
+ *
+ * PROBLEM:
+ * Implement serialization patterns for converting objects to/from JSON:
+ * - Serializable interface with toJSON method
+ * - Static fromJSON for class revival (recreating class instances)
+ * - Generic Serializer for any Serializable type
+ * - JsonRepository for CRUD operations
+ *
+ * EXPECTED OUTCOMES:
+ * 1. Task.toJSON() converts to plain object with ISO date string
+ * 2. Task.fromJSON() revives Date objects from ISO strings
+ * 3. Serializer handles serialize/deserialize with custom reviver
+ * 4. JsonRepository provides save/findById/findAll/delete
+ *
+ * LEARNING GOALS:
+ * - Handle Date serialization properly
+ * - Implement class revival pattern
+ * - Build generic repository abstraction
+ */
 
 // Serializable interface
 export interface Serializable<T> {
@@ -15,12 +35,10 @@ export class Task implements Serializable<Task> {
   ) {}
 
   toJSON(): object {
-    return {
-      id: this.id,
-      title: this.title,
-      completed: this.completed,
-      dueDate: this.dueDate?.toISOString() ?? null,
-    };
+    // TODO: Return { id, title, completed, dueDate }
+    // TODO: Convert dueDate to ISO string (or null)
+    // Hint: dueDate?.toISOString() ?? null
+    throw new Error('Not implemented');
   }
 
   static fromJSON(data: {
@@ -29,12 +47,9 @@ export class Task implements Serializable<Task> {
     completed: boolean;
     dueDate: string | null;
   }): Task {
-    return new Task(
-      data.id,
-      data.title,
-      data.completed,
-      data.dueDate ? new Date(data.dueDate) : null
-    );
+    // TODO: Create new Task from data
+    // TODO: Convert dueDate string back to Date (or null)
+    throw new Error('Not implemented');
   }
 }
 
@@ -43,46 +58,48 @@ export class Serializer<T extends Serializable<T>> {
   constructor(private reviver: (data: object) => T) {}
 
   serialize(entity: T): string {
-    return JSON.stringify(entity.toJSON());
+    // TODO: Return JSON.stringify of entity.toJSON()
+    throw new Error('Not implemented');
   }
 
   deserialize(json: string): T {
-    const data = JSON.parse(json);
-    return this.reviver(data);
+    // TODO: Parse JSON and pass to reviver
+    throw new Error('Not implemented');
   }
 
   serializeMany(entities: T[]): string {
-    return JSON.stringify(entities.map(e => e.toJSON()));
+    // TODO: Map entities to toJSON() and stringify
+    throw new Error('Not implemented');
   }
 
   deserializeMany(json: string): T[] {
-    const data = JSON.parse(json) as object[];
-    return data.map(d => this.reviver(d));
+    // TODO: Parse JSON array and map through reviver
+    throw new Error('Not implemented');
   }
 }
 
-// Simple file-like repository
+// Simple repository using JSON serialization
 export class JsonRepository<T extends Serializable<T> & { id: string }> {
   private storage = new Map<string, string>();
 
   constructor(private serializer: Serializer<T>) {}
 
   save(entity: T): void {
-    this.storage.set(entity.id, this.serializer.serialize(entity));
+    // TODO: Serialize entity and store by id
   }
 
   findById(id: string): T | null {
-    const json = this.storage.get(id);
-    return json ? this.serializer.deserialize(json) : null;
+    // TODO: Get JSON from storage, deserialize, or return null
+    throw new Error('Not implemented');
   }
 
   findAll(): T[] {
-    return Array.from(this.storage.values()).map(json =>
-      this.serializer.deserialize(json)
-    );
+    // TODO: Return array of all deserialized entities
+    throw new Error('Not implemented');
   }
 
   delete(id: string): boolean {
-    return this.storage.delete(id);
+    // TODO: Remove from storage, return whether it existed
+    throw new Error('Not implemented');
   }
 }

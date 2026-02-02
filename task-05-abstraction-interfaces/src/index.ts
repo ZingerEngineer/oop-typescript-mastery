@@ -1,4 +1,24 @@
-// task-05-abstraction-interfaces - Abstract classes and interfaces
+/**
+ * TASK 05: Abstraction & Interfaces
+ *
+ * PROBLEM:
+ * Create an abstract Entity class and Serializable interface, then implement
+ * a User class that extends Entity and implements Serializable.
+ *
+ * EXPECTED OUTCOMES:
+ * 1. Serializable interface with serialize() and deserialize() methods
+ * 2. Abstract Entity class with abstract id and validate(), concrete toString()
+ * 3. User extends Entity, implements Serializable
+ * 4. User.validate() returns true if username is non-empty AND email contains '@'
+ * 5. User.serialize() returns JSON string of {id, username, email}
+ * 6. User.deserialize() parses JSON and updates username/email
+ *
+ * LEARNING GOALS:
+ * - Define interfaces as contracts
+ * - Create abstract classes with abstract and concrete members
+ * - Implement multiple abstractions (extends + implements)
+ */
+
 export interface Serializable {
   serialize(): string;
   deserialize(data: string): void;
@@ -9,6 +29,7 @@ export abstract class Entity {
   abstract validate(): boolean;
 
   toString(): string {
+    // This is implemented for you
     return `Entity(${this.id})`;
   }
 }
@@ -26,16 +47,20 @@ export class User extends Entity implements Serializable {
   }
 
   validate(): boolean {
-    return this.username.length > 0 && this.email.includes('@');
+    // TODO: Return true if:
+    // - username has length > 0 AND
+    // - email contains '@'
+    throw new Error('Not implemented');
   }
 
   serialize(): string {
-    return JSON.stringify({ id: this.id, username: this.username, email: this.email });
+    // TODO: Return JSON string of { id, username, email }
+    // Hint: Use JSON.stringify()
+    throw new Error('Not implemented');
   }
 
   deserialize(data: string): void {
-    const parsed = JSON.parse(data);
-    this.username = parsed.username;
-    this.email = parsed.email;
+    // TODO: Parse JSON data and update username and email
+    // Hint: Use JSON.parse()
   }
 }

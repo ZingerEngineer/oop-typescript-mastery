@@ -1,4 +1,22 @@
-// task-15-immutability-value-objects - Readonly patterns, value semantics
+/**
+ * TASK 15: Immutability & Value Objects
+ *
+ * PROBLEM:
+ * Implement immutable value objects that are compared by value, not reference.
+ * Operations return new instances instead of modifying existing ones.
+ *
+ * EXPECTED OUTCOMES:
+ * 1. Money uses private constructor, created via Money.of() factory
+ * 2. Money.of() throws if amount is negative
+ * 3. Money.add() returns new Money instance, validates same currency
+ * 4. Money.equals() compares by value (amount and currency)
+ * 5. ImmutableList operations (add, remove, map) return new instances
+ *
+ * LEARNING GOALS:
+ * - Understand value object semantics
+ * - Use Object.freeze() for runtime immutability
+ * - Implement fluent APIs that return new instances
+ */
 
 // Value Object - immutable, compared by value
 export class Money {
@@ -10,23 +28,26 @@ export class Money {
   }
 
   static of(amount: number, currency: string): Money {
-    if (amount < 0) throw new Error('Amount cannot be negative');
-    return new Money(amount, currency);
+    // TODO: Throw Error if amount < 0 ('Amount cannot be negative')
+    // TODO: Return new Money instance
+    throw new Error('Not implemented');
   }
 
   add(other: Money): Money {
-    if (this.currency !== other.currency) {
-      throw new Error('Currency mismatch');
-    }
-    return Money.of(this.amount + other.amount, this.currency);
+    // TODO: Throw Error if currencies don't match ('Currency mismatch')
+    // TODO: Return new Money with sum of amounts
+    throw new Error('Not implemented');
   }
 
   equals(other: Money): boolean {
-    return this.amount === other.amount && this.currency === other.currency;
+    // TODO: Return true if amount AND currency are equal
+    throw new Error('Not implemented');
   }
 
   toString(): string {
-    return `${this.currency} ${this.amount.toFixed(2)}`;
+    // TODO: Return "{currency} {amount}" with 2 decimal places
+    // Example: "USD 10.50"
+    throw new Error('Not implemented');
   }
 }
 
@@ -37,30 +58,38 @@ export class ImmutableList<T> {
   }
 
   static of<T>(...items: T[]): ImmutableList<T> {
-    return new ImmutableList(Object.freeze([...items]));
+    // TODO: Return new ImmutableList with frozen copy of items
+    throw new Error('Not implemented');
   }
 
   static empty<T>(): ImmutableList<T> {
-    return new ImmutableList<T>([]);
+    // TODO: Return new empty ImmutableList
+    throw new Error('Not implemented');
   }
 
   add(item: T): ImmutableList<T> {
-    return new ImmutableList([...this.items, item]);
+    // TODO: Return NEW ImmutableList with item added
+    // Don't modify this.items!
+    throw new Error('Not implemented');
   }
 
   remove(predicate: (item: T) => boolean): ImmutableList<T> {
-    return new ImmutableList(this.items.filter(i => !predicate(i)));
+    // TODO: Return NEW ImmutableList without items matching predicate
+    throw new Error('Not implemented');
   }
 
   map<U>(fn: (item: T) => U): ImmutableList<U> {
-    return new ImmutableList(this.items.map(fn));
+    // TODO: Return NEW ImmutableList with transformed items
+    throw new Error('Not implemented');
   }
 
   toArray(): T[] {
-    return [...this.items];
+    // TODO: Return copy of items as regular array
+    throw new Error('Not implemented');
   }
 
   get size(): number {
-    return this.items.length;
+    // TODO: Return number of items
+    throw new Error('Not implemented');
   }
 }

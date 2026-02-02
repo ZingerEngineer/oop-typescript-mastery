@@ -1,4 +1,22 @@
-// task-09-dependency-injection - Inversion of Control and DI
+/**
+ * TASK 09: Dependency Injection
+ *
+ * PROBLEM:
+ * Implement a NotificationService that depends on EmailService and UserStore,
+ * plus a simple DI Container for registering and resolving dependencies.
+ *
+ * EXPECTED OUTCOMES:
+ * 1. NotificationService receives dependencies via constructor
+ * 2. notifyUser() fetches user, sends email, returns true on success
+ * 3. notifyUser() returns false if user not found
+ * 4. Container.register() stores services by key
+ * 5. Container.resolve() retrieves services, throws if not found
+ *
+ * LEARNING GOALS:
+ * - Understand Inversion of Control (IoC)
+ * - Implement constructor injection
+ * - Build a simple service container
+ */
 
 // Interfaces for dependencies
 export interface EmailService {
@@ -23,11 +41,11 @@ export class NotificationService {
   ) {}
 
   async notifyUser(userId: string, message: string): Promise<boolean> {
-    const user = await this.userStore.getUser(userId);
-    if (!user) return false;
-
-    await this.emailService.send(user.email, 'Notification', message);
-    return true;
+    // TODO: 1. Get user from userStore using userId
+    // TODO: 2. If user is null, return false
+    // TODO: 3. Send email using emailService.send(user.email, 'Notification', message)
+    // TODO: 4. Return true
+    throw new Error('Not implemented');
   }
 }
 
@@ -36,12 +54,13 @@ export class Container {
   private services = new Map<string, unknown>();
 
   register<T>(key: string, instance: T): void {
-    this.services.set(key, instance);
+    // TODO: Store the instance in the services Map with the given key
   }
 
   resolve<T>(key: string): T {
-    const service = this.services.get(key);
-    if (!service) throw new Error(`Service ${key} not found`);
-    return service as T;
+    // TODO: Get the service from the Map
+    // TODO: If not found, throw Error(`Service ${key} not found`)
+    // TODO: Return the service cast as T
+    throw new Error('Not implemented');
   }
 }

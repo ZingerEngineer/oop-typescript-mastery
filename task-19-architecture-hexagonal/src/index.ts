@@ -1,4 +1,25 @@
-// task-19-architecture-hexagonal - Ports & Adapters, clean architecture
+/**
+ * TASK 19: Hexagonal Architecture
+ *
+ * PROBLEM:
+ * Implement Ports & Adapters (Hexagonal) architecture:
+ * - Domain: User entity (core business logic)
+ * - Ports: Interfaces for external dependencies
+ * - Adapters: Concrete implementations of ports
+ * - Application Service: Orchestrates use cases
+ *
+ * EXPECTED OUTCOMES:
+ * 1. UserRepository port defines data access interface
+ * 2. NotificationPort defines external notification interface
+ * 3. UserRegistrationService orchestrates registration
+ * 4. InMemoryUserRepository implements UserRepository
+ * 5. Registration fails if email already exists
+ *
+ * LEARNING GOALS:
+ * - Separate domain from infrastructure
+ * - Define ports (interfaces) for external dependencies
+ * - Implement adapters for specific technologies
+ */
 
 // Domain Entity (core)
 export class User {
@@ -29,16 +50,13 @@ export class UserRegistrationService {
   ) {}
 
   async register(email: string, name: string): Promise<User> {
-    const existing = await this.userRepo.findByEmail(email);
-    if (existing) {
-      throw new Error('Email already registered');
-    }
-
-    const user = new User(crypto.randomUUID(), email, name);
-    await this.userRepo.save(user);
-    await this.notifications.sendWelcome(user);
-
-    return user;
+    // TODO: 1. Check if email exists using findByEmail
+    // TODO: 2. If exists, throw Error('Email already registered')
+    // TODO: 3. Create new User with crypto.randomUUID() as id
+    // TODO: 4. Save user via userRepo
+    // TODO: 5. Send welcome notification
+    // TODO: 6. Return user
+    throw new Error('Not implemented');
   }
 }
 
@@ -47,24 +65,23 @@ export class InMemoryUserRepository implements UserRepository {
   private users = new Map<string, User>();
 
   async findById(id: string): Promise<User | null> {
-    return this.users.get(id) ?? null;
+    // TODO: Return user from Map or null
+    throw new Error('Not implemented');
   }
 
   async save(user: User): Promise<void> {
-    this.users.set(user.id, user);
+    // TODO: Store user in Map by id
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    for (const user of this.users.values()) {
-      if (user.email === email) return user;
-    }
-    return null;
+    // TODO: Search users by email, return match or null
+    throw new Error('Not implemented');
   }
 }
 
 // Adapter: Console notification implementation
 export class ConsoleNotificationAdapter implements NotificationPort {
   async sendWelcome(user: User): Promise<void> {
-    console.log(`Welcome ${user.name}! Email sent to ${user.email}`);
+    // TODO: Log welcome message to console
   }
 }
